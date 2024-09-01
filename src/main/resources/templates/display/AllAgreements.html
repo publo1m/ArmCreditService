@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agreement List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tbody tr:hover {
+            background-color: #ddd;
+        }
+        .menu-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .menu-button a {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .pagination span {
+            margin: 0 10px;
+            line-height: 36px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Agreement List</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Signing status</th>
+            <th>Date of signing</th>
+            <th>Loan amount</th>
+            <th>Loan term (months)</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="agreement : ${agreementList}">
+            <td th:text="${agreement.agreementId}"></td>
+            <td th:text="${agreement.isSigned}"></td>
+            <td th:text="${agreement.dateSigned}"></td>
+            <td th:text="${agreement.loanAmount}"></td>
+            <td th:text="${agreement.loanTermMonths}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <button th:if="${currentPage > 0}" th:onclick="'location.href=\'/getAllAgreements?page=' + (${currentPage - 1}) + '&size=' + ${size} + '\''">Previous</button>
+        <span>Page <span th:text="${currentPage + 1}"></span> of <span th:text="${totalPages}"></span></span>
+        <button th:if="${currentPage < totalPages - 1}" th:onclick="'location.href=\'/getAllAgreements?page=' + (${currentPage + 1}) + '&size=' + ${size} + '\''">Next</button>
+    </div>
+    <div class="menu-button">
+        <a th:href="@{/}">Menu</a>
+    </div>
+</div>
+</body>
+</html>

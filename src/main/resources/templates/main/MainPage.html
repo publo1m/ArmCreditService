@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Menu</h1>
+    <div class="button-container">
+        <form th:action="@{/getApplicationForm}" method="get">
+            <button type="submit">Apply for a loan</button>
+        </form>
+        <form th:action="@{/getAllClients}" method="get">
+            <button type="submit">All clients</button>
+        </form>
+        <form th:action="@{/getSearchForm}" method="get">
+            <button type="submit">Find a client</button>
+        </form>
+        <form th:action="@{/getAllApplications}" method="get">
+            <button type="submit">All applications</button>
+        </form>
+        <form th:action="@{/getAllAgreements}" method="get">
+            <button type="submit">All credit agreements</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

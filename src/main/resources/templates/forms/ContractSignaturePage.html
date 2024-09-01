@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signing an agreement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        .button.decline {
+            background-color: #dc3545;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Signing the contract</h1>
+
+    <p><strong>Agreement №:</strong> <span th:text="${loanAgreement.loanAgreementId.toString()}"></span></p>
+    <p><strong>Client:</strong> <span th:text="${loanAgreement.client.familyName} + ' ' + ${loanAgreement.client.name} + ' ' + ${loanAgreement.client.patronymic}"></span></p>
+    <p><strong>Loan amount:</strong> <span th:text="${loanAgreement.loanApplication.loanAmount}"></span></p>
+    <p><strong>Loan term (months):</strong> <span th:text="${loanAgreement.loanApplication.loanTermMonths}"></span></p>
+
+    <div class="button-container">
+        <form th:action="@{/signAgreement}" method="post">
+            <input type="hidden" name="agreementId" th:value="${loanAgreement.loanAgreementId}">
+            <button type="submit" class="button">Sign</button>
+        </form>
+
+        <form th:action="@{/declineAgreement}" method="post">
+            <input type="hidden" name="agreementId" th:value="${loanAgreement.loanAgreementId}">
+            <button type="submit" class="button decline">Don't sign</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
